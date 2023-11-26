@@ -439,47 +439,47 @@ INSERT INTO employees (employee_id, employee_name, department_id) VALUES (1, 'Jo
 
 INSERT INTO departments (department_id, department_name) VALUES (101, 'Sales'), (102, 'Marketing'), (103, 'Finance');
 ```
-### INNER JOIN
+### 19.) INNER JOIN
 ```sql
-19.) SELECT * FROM employees INNER JOIN departments ON employees.department_id = departments.department_id; 
-     .................or...................
-     select * from employees inner join departments on employees.department_id = departments.department_id;
+SELECT * FROM employees INNER JOIN departments ON employees.department_id = departments.department_id; 
+.................or...................
+select * from employees inner join departments on employees.department_id = departments.department_id;
 ```
 <p>
     This command retrieves all columns from the 'employees' table and combines them with corresponding records from the 'departments' table based on their shared 'department_id'.
 </p>
 
 
-### LEFT JOIN
+### 20.) LEFT JOIN
 ```sql
-20.) SELECT * FROM employees LEFT JOIN departments ON employees.department_id = departments.department_id;
-     ...................or..................
-     select * from employees left join departments on employees.department_id = departments.department_id;
+SELECT * FROM employees LEFT JOIN departments ON employees.department_id = departments.department_id;
+...................or..................
+select * from employees left join departments on employees.department_id = departments.department_id;
 ```
 <p>
     This command retrieves all columns from the 'employees' table and combines them with related records from the 'departments' table based on their shared 'department_id'. Unlike an INNER JOIN, a LEFT JOIN includes all records from the 'employees' table, regardless of whether there's a match in the 'departments' table. If there's no match, the corresponding 'departments' columns will be filled with NULL values.
 </p>
 
 
-### RIGHT JOIN
+### 21.) RIGHT JOIN
 ```sql
-21.) SELECT * FROM employees RIGHT JOIN departments ON employees.department_id = departments.department_id;
-     ...................or.......................
-     select * from employees right join departments on employees.department_id = departments.department_id;
+SELECT * FROM employees RIGHT JOIN departments ON employees.department_id = departments.department_id;
+...................or.......................
+select * from employees right join departments on employees.department_id = departments.department_id;
 ```
 <p>This command retrieves all columns from the 'employees' table and includes related records from the 'departments' table based on their shared 'department_id'. Using a RIGHT JOIN ensures that all records from the 'departments' table are included, regardless of whether there's a match in the 'employees' table. If there's no match, the corresponding 'employees' columns will be filled with NULL values.</p>
 
 
-### FULL OUTER JOIN
+### 22.) FULL OUTER JOIN
 ```sql
-22.) SELECT * FROM employees LEFT JOIN departments ON employees.department_id = departments.department_id UNION SELECT * FROM employees RIGHT JOIN departments ON employees.department_id = departments.department_id;
+SELECT * FROM employees LEFT JOIN departments ON employees.department_id = departments.department_id UNION SELECT * FROM employees RIGHT JOIN departments ON employees.department_id = departments.department_id;
 ```
 <p>
     This query retrieves all columns from the 'employees' table and combines them with related records from the 'departments' table using both LEFT JOIN and RIGHT JOIN. The UNION operator combines the results of the LEFT JOIN and RIGHT JOIN into a single result set, excluding duplicates. This means it includes all records from both tables, ensuring a comprehensive view of the combined data based on the 'department_id'.
 </p>
 
 
-### CROSS JOIN
+### 23.) CROSS JOIN
 ```sql
 CREATE TABLE employees (employee_id INT, employee_name VARCHAR(255), department_id INT);
 
@@ -491,7 +491,7 @@ INSERT INTO departments (department_id, department_name) VALUES (101, 'Sales'), 
 ```
 
 ```sql
-23.) select * from employees cross join departments;
+select * from employees cross join departments;
 ```
 <p>
     The query `SELECT * FROM employees CROSS JOIN departments;` performs a CROSS JOIN between the `employees` and `departments` tables. This generates a result set containing every combination of rows from both tables, displaying each employee paired with every department, resulting in a Cartesian product of their rows.
@@ -502,7 +502,7 @@ INSERT INTO departments (department_id, department_name) VALUES (101, 'Sales'), 
 </p>
 
 ```sql
-24.) select * from employees cross join departments where employees.department_id=departments.department_id;
+select * from employees cross join departments where employees.department_id=departments.department_id;
 ```
 <p>
     This command performs a `CROSS JOIN` between the 'employees' and 'departments' tables. However, the additional condition `employees.department_id = departments.department_id` is attempting to filter the result based on a match between the 'department_id' columns from both tables. In a `CROSS JOIN`, this condition doesn't have any effect as it pairs all rows from 'employees' with all rows from 'departments', disregarding matching criteria.
@@ -510,7 +510,7 @@ INSERT INTO departments (department_id, department_name) VALUES (101, 'Sales'), 
 
 
 
-### SELF JOIN
+### 24.) SELF JOIN
 ```sql
 CREATE TABLE customer (customer_id int, customer_name varchar(255), manager_id INT);
 INSERT INTO customer (customer_id, customer_name, manager_id) VALUES(1, 'John', 3),(2, 'Alice', 3),(3, 'Bob', NULL),(4, 'Mary', 2),(5, 'David', 2);
@@ -519,14 +519,14 @@ INSERT INTO customer (customer_id, customer_name, manager_id) VALUES(1, 'John', 
 
 
 ```sql
-24.)  SELECT e.customer_name AS customer, m.customer_name AS manager FROM customer e LEFT JOIN customer m ON e.manager_id = m.customer_id;
-      ...................or......................
-      select e.customer_name as customer, m.customer_name as manager as customer e left join customer m on e.manager_id = m.customer_id;
+SELECT e.customer_name AS customer, m.customer_name AS manager FROM customer e LEFT JOIN customer m ON e.manager_id = m.customer_id;
+...................or......................
+select e.customer_name as customer, m.customer_name as manager as customer e left join customer m on e.manager_id = m.customer_id;
 ```
 <p>This command retrieves customer names (`customer`) and their corresponding manager names (`manager`). It connects the `customer` table with itself using `manager_id` and `customer_id`, displaying each customer alongside their respective manager. If a customer doesn't have a manager, it shows 'NULL' for the manager's name.</p>
 
 
-## AGGREGATE FUNCTIONS
+## 25.) AGGREGATE FUNCTIONS
 Aggregate functions in SQL perform calculations on a set of values and return a single value. These functions allow you to compute summaries such as sum, average, count, minimum, or maximum across a group of rows.
 
 Common aggregate functions include:
@@ -547,7 +547,7 @@ mysql> INSERT INTO office (employee_id, employee_name, department_id, salary) VA
 
 ```sql
 -- Department-wise total employees count
-25.) SELECT department_id, COUNT(*) AS total_employees FROM employees GROUP BY department_id;
+SELECT department_id, COUNT(*) AS total_employees FROM employees GROUP BY department_id;
 ```
 <p>
     This command retrieves the 'department_id' column and counts the number of occurrences for each 'department_id' in the 'employees' table. The GROUP BY clause then organizes the results based on 'department_id', creating groups where each group represents a unique 'department_id'. The COUNT(*) function calculates the number of rows in each group, indicating the total count of employees in each department.
@@ -555,7 +555,7 @@ mysql> INSERT INTO office (employee_id, employee_name, department_id, salary) VA
 
 ```sql
 -- Department-wise average salary
-26.) SELECT department_id, AVG(salary) AS avg_salary FROM employees GROUP BY department_id;
+SELECT department_id, AVG(salary) AS avg_salary FROM employees GROUP BY department_id;
 ```
 <p>
     This command fetches the 'department_id' column and computes the average salary for each department in the 'employees' table. It uses the `GROUP BY` clause to organize the results into groups based on 'department_id', calculating the average salary within each department using the `AVG()` function.
@@ -563,7 +563,7 @@ mysql> INSERT INTO office (employee_id, employee_name, department_id, salary) VA
 
 ```sql
 -- Department-wise maximum salary
-27.) SELECT department_id, MAX(salary) AS max_salary FROM employees GROUP BY department_id;
+SELECT department_id, MAX(salary) AS max_salary FROM employees GROUP BY department_id;
 ```
 
 <p>
